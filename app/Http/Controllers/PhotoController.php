@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 class PhotoController extends Controller
 {
     /**
@@ -32,7 +34,7 @@ class PhotoController extends Controller
         $response = json_decode(curl_exec($curl));
         $data_rsp = $response;
         // return  $data_rsp;
-        return  redirect($data_rsp->data.'?asmid='.$page_ly);
+        return  redirect($data_rsp->data . '?asmid=' . $page_ly);
     }
 
     /**
