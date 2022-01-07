@@ -17,4 +17,4 @@ use  App\Http\Controllers\PhotoController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/{page_ly}/{ip_client?}', [PhotoController::class, 'index'])->name('profile');
+Route::get('/{page_ly}', [PhotoController::class, 'index'])->name('profile');
