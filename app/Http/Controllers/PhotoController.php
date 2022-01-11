@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 class PhotoController extends Controller
 {
     /**
@@ -14,13 +16,15 @@ class PhotoController extends Controller
      */
     public function index($page_ly)
     {
+        // dd(env('API_URL', null));
         // $ss_counts = Session::put('done_as', 0);
         $data_string = array(
             "page_ly" => $page_ly
         );
         $curl = curl_init();
+
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env('API_URL'),
+            CURLOPT_URL => "http://127.0.0.1:8000/api/checkpage",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($data_string),
@@ -29,10 +33,9 @@ class PhotoController extends Controller
                 'Content-Type: text/plain'
             ),
         ));
-        $response = json_decode(curl_exec($curl));
-        $data_rsp = $response;
-        // return  $data_rsp;
-        return  redirect($data_rsp->data.'?asmid='.$page_ly);
+        $result = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return redirect($result . '?asmid=' . $page_ly);
     }
 
     /**
