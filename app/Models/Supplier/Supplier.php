@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Supplier;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
-
 use Laravel\Sanctum\HasApiTokens;
-class User extends Authenticatable
+use Illuminate\Notifications\Notifiable;
+class Supplier extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    protected $guarded = [''];
+    public $table = 'supplier';
     // protected $fillable = ['code_share','password','email','name','address','avatar'];s
+    protected $guarded = [''];
     const STATUS_DEFAULT = 0;
     const STATUS_PROCESS = 1;
     public $statusGlobal;
@@ -37,18 +37,8 @@ class User extends Authenticatable
     {
         return Arr::get($this->u_status, $this->status, "[N\A]");
     }
-    
     protected $hidden = [
         'password',
         'remember_token',
     ];
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime', 
-    ];
-    
 }
